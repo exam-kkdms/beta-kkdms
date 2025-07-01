@@ -78,3 +78,57 @@ window.addEventListener('DOMContentLoaded', () => {
   spinner.style.display = 'block';
   setTimeout(() => { spinner.style.display = 'none'; }, 1000);
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const teacherSelect = document.getElementById("teacher");
+  const passwordInput = document.getElementById("password");
+  const loginBtn = document.getElementById("loginBtn");
+  const showPasswordCheckbox = document.getElementById("showPassword");
+  const rememberMeCheckbox = document.getElementById("rememberMe");
+
+  // Load remembered teacher name and password
+  if (localStorage.getItem("rememberedTeacher")) {
+    teacherSelect.value = localStorage.getItem("rememberedTeacher");
+    passwordInput.value = localStorage.getItem("rememberedPassword");
+    rememberMeCheckbox.checked = true;
+  }
+
+  // Show/hide password
+  showPasswordCheckbox.addEventListener("change", () => {
+    passwordInput.type = showPasswordCheckbox.checked ? "text" : "password";
+  });
+
+  // Login logic
+  loginBtn.addEventListener("click", () => {
+    const selectedTeacher = teacherSelect.value;
+    const enteredPassword = passwordInput.value;
+
+    if (TEACHER_CREDENTIALS[selectedTeacher] === enteredPassword) {
+      // Store if remember me checked
+      if (rememberMeCheckbox.checked) {
+        localStorage.setItem("rememberedTeacher", selectedTeacher);
+        localStorage.setItem("rememberedPassword", enteredPassword);
+      } else {
+        localStorage.removeItem("rememberedTeacher");
+        localStorage.removeItem("rememberedPassword");
+      }
+
+      // Show notice then go to home
+      fetch("../notice.html")
+        .then(res => res.text())
+        .then(html => {
+          const noticeWindow = window.open("", "Notice", "width=600,height=400");
+          noticeWindow.document.write(html);
+          const checkClosed = setInterval(() => {
+            if (noticeWindow.closed) {
+              clearInterval(checkClosed);
+              window.location.href = "home.html";
+            }
+          }, 500);
+        });
+    } else {
+      alert("Invalid credentials!");
+    }
+  });
+});
