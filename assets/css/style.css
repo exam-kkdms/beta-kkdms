@@ -1,1 +1,140 @@
+/* General CSS for Kamal Kumari Devi Model School Examination Portal */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url('https://i.ibb.co/vxYj1BM/Building-1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: #003366;
+}
+
+header h2 {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  margin-top: 30px;
+}
+
+/* Buttons */
+button, .btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Panels */
+.panel {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+/* Forms */
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+  color: #333;
+}
+
+/* Checkboxes */
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+/* Spinner */
+.spinner {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 600;
+  color: #764ba2;
+}
+
+.spinner::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #764ba2;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  header h2 {
+    font-size: 0.9rem;
+  }
+
+  button, .btn {
+    width: 100%;
+  }
+}
 
