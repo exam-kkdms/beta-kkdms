@@ -1,1 +1,42 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Teacher Login - KKDMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <script src="../assets/js/credentials.js"></script> <!-- Contains TEACHER_CREDENTIALS -->
+  <script src="../assets/js/script.js" defer></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+
+  <div class="panel" style="max-width: 400px; margin: auto;">
+    <h2 style="text-align: center;">Teacher Login</h2>
+    <label for="teacher">Select Name:</label>
+    <select id="teacher">
+      <option value="">--Select--</option>
+      <option value="Abdul Sir">Abdul Sir</option>
+      <option value="Priya Ma'am">Priya Ma'am</option>
+      <option value="Ravi Sir">Ravi Sir</option>
+    </select>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Enter Password" />
+
+    <label><input type="checkbox" id="showPassword" /> Show Password</label>
+    <label><input type="checkbox" id="rememberMe" /> Remember Me</label>
+
+    <button id="loginBtn" class="btn" style="margin-top: 15px;">Login</button>
+
+    <div class="spinner" id="spinner">Loading...</div>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+</body>
+</html>
