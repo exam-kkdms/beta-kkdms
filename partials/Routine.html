@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Timetable Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    select, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    .loader {
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>Class Timetable Viewer</h2>
+  <div style="text-align:center">
+    <select id="classSelect">
+      <option value="">-- Select Class --</option>
+      <option>Balvatika 1</option>
+      <option>Balvatika 2 A</option>
+      <option>Balvatika 2 B</option>
+      <option>Balvitika 3 A</option>
+      <option>Balvitika 3 B</option>
+      <option>Class 1 A</option>
+      <option>Class 1 B</option>
+      <option>Class 2 A</option>
+      <option>Class 2 B</option>
+      <option>Class 3 A</option>
+      <option>Class 3 B</option>
+      <option>Class 4 A</option>
+      <option>Class 4 B</option>
+      <option>Class 5 A</option>
+      <option>Class 5 B</option>
+      <option>Class 6 A</option>
+      <option>Class 6 B</option>
+      <option>Class 7 A</option>
+      <option>Class 7 B</option>
+      <option>Class 8 A</option>
+      <option>Class 8 B</option>
+      <option>Class 9 A</option>
+      <option>Class 10 A</option>
+      <option>Class 11 Arts</option>
+      <option>Class 11 Sci</option>
+      <option>Class 11 Com</option>
+      <option>Class 12 Arts</option>
+      <option>Class 12 Sci</option>
+      <option>Class 12 Com</option>
+    </select>
+    <button onclick="fetchTimetable()">Search</button>
+  </div>
+
+  <div class="loader" id="loader">Loading...</div>
+  <div id="result"></div>
+
+  <script>
+    const apiURL = "https://script.google.com/a/~/macros/s/AKfycbzdLSrQM4XeO6dF6onXPIblVcpMgjQZsbxDh8wLiYqDM1_FEdAd6CnE3_sNH3gPoQ/exec";
+
+    function fetchTimetable() {
+      const selectedClass = document.getElementById("classSelect").value;
+      const loader = document.getElementById("loader");
+      const resultDiv = document.getElementById("result");
+
+      if (!selectedClass) {
+        alert("Please select a class.");
+        return;
+      }
+
+      loader.style.display = "block";
+      resultDiv.innerHTML = "";
+
+      fetch(`${apiURL}?class=${encodeURIComponent(selectedClass)}`)
+        .then(res => res.text())
+        .then(txt => {
+          loader.style.display = "none";
+          const data = JSON.parse(txt);
+          delete data[""]; // remove range entry
+
+          const days = ["mon", "tue", "wen", "tha", "fri"];
+          const table = document.createElement("table");
+
+          let header = '<tr><th>Day</th>';
+          for (let i = 1; i <= 8; i++) {
+            header += `<th>${i}st Teacher</th><th>${i}st Subject</th>`;
+          }
+          header += '</tr>';
+          table.innerHTML += header;
+
+          days.forEach(day => {
+            let row = `<tr><td>${capitalize(day)}</td>`;
+            for (let i = 1; i <= 8; i++) {
+              row += `<td>${data[`${day}-tr-${i}`] || ''}</td><td>${data[`${day}-su-${i}`] || ''}</td>`;
+            }
+            row += '</tr>';
+            table.innerHTML += row;
+          });
+
+          resultDiv.appendChild(table);
+        })
+        .catch(err => {
+          loader.style.display = "none";
+          resultDiv.innerHTML = "<p style='color:red;text-align:center;'>Error fetching data. Please try again.</p>";
+          console.error(err);
+        });
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  </script>
+</body>
+</html>
