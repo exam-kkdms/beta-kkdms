@@ -64,20 +64,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-window.addEventListener('DOMContentLoaded', () => {
-  fetch('/partials/header.html').then(res => res.text()).then(data => {
-    document.getElementById('header-placeholder').innerHTML = data;
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  const basePath = window.location.pathname.includes("/teacher/") ? "../" :
+                   window.location.pathname.includes("/student/") ? "../" :
+                   ""; // root level
 
-  fetch('/partials/footer.html').then(res => res.text()).then(data => {
-    document.getElementById('footer-placeholder').innerHTML = data;
-  });
+  // Load header
+  fetch(`${basePath}partials/header.html`)
+    .then(res => res.text())
+    .then(data => {
+      const header = document.getElementById("header-placeholder");
+      if (header) header.innerHTML = data;
+    });
 
-  // Optional spinner simulation
-  const spinner = document.getElementById('spinner');
-  spinner.style.display = 'block';
-  setTimeout(() => { spinner.style.display = 'none'; }, 1000);
+  // Load footer
+  fetch(`${basePath}partials/footer.html`)
+    .then(res => res.text())
+    .then(data => {
+      const footer = document.getElementById("footer-placeholder");
+      if (footer) footer.innerHTML = data;
+    });
 });
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
