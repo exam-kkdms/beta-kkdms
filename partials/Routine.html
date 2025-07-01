@@ -6,24 +6,35 @@
   <title>Class Timetable Viewer</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f9f9f9, #e6f0ff);
       padding: 20px;
-      background: #f9f9f9;
     }
     h2 {
       text-align: center;
-      color: #333;
+      color: #2c3e50;
     }
     select, button {
       padding: 10px;
       margin: 10px;
       font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #2980b9;
     }
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
-      background: #fff;
+      background: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     th, td {
@@ -32,11 +43,29 @@
       text-align: center;
     }
     th {
-      background-color: #f0f0f0;
+      background-color: #3498db;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
     }
     .loader {
       display: none;
       text-align: center;
+      margin-top: 20px;
+    }
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -78,7 +107,9 @@
     <button onclick="fetchTimetable()">Search</button>
   </div>
 
-  <div class="loader" id="loader">Loading...</div>
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+  </div>
   <div id="result"></div>
 
   <script>
